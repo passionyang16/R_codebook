@@ -146,12 +146,13 @@ print(D_tree)
 prp(D_tree, type=4, extra=2, digits=3)
 ```
 
+
 More parameters to control
 
 ```{r}
-set.seed(1234)
-my.control <- rpart.control(xval=10,cp=0.001)
+#xval means cross validation, whether to prun or not
+my.control <- rpart.control(xval=10,cp=0.001,minsplit=3)
+tree <- rpart(Survived ~ Class+Sex+Age, data=titanic, method='class', control = my.control)
+plot(tree, uniform=T, compress = T, margin=0.05)
+printcp(tree)
 ```
-
-hello
-

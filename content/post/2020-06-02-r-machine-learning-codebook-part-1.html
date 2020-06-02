@@ -330,6 +330,26 @@ print(D_tree)</code></pre>
 <pre class="r"><code>prp(D_tree, type=4, extra=2, digits=3)</code></pre>
 <p><img src="/post/2020-06-02-r-machine-learning-codebook-part-1_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
 <p>More parameters to control</p>
-<pre class="r"><code>set.seed(1234)
-my.control &lt;- rpart.control(xval=10,cp=0.001)</code></pre>
-<p>hello</p>
+<pre class="r"><code>#xval means cross validation, whether to prun or not
+my.control &lt;- rpart.control(xval=10,cp=0.001,minsplit=3)
+tree &lt;- rpart(Survived ~ Class+Sex+Age, data=titanic, method=&#39;class&#39;, control = my.control)
+plot(tree, uniform=T, compress = T, margin=0.05)</code></pre>
+<p><img src="/post/2020-06-02-r-machine-learning-codebook-part-1_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<pre class="r"><code>printcp(tree)</code></pre>
+<pre><code>## 
+## Classification tree:
+## rpart(formula = Survived ~ Class + Sex + Age, data = titanic, 
+##     method = &quot;class&quot;, control = my.control)
+## 
+## Variables actually used in tree construction:
+## [1] Age   Class Sex  
+## 
+## Root node error: 711/2201 = 0.32303
+## 
+## n= 2201 
+## 
+##         CP nsplit rel error  xerror     xstd
+## 1 0.306610      0   1.00000 1.00000 0.030857
+## 2 0.022504      1   0.69339 0.69339 0.027510
+## 3 0.011252      2   0.67089 0.69620 0.027549
+## 4 0.001000      4   0.64838 0.64838 0.026850</code></pre>

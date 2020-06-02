@@ -12,6 +12,15 @@
     
     
     <item>
+      <title>R Machine Learning Codebook (Part 2)</title>
+      <link>/2020/06/03/r-machine-learning-codebook-part-2/</link>
+      <pubDate>Wed, 03 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/06/03/r-machine-learning-codebook-part-2/</guid>
+      <description>Neural Network   used regardless of response variable, but intended to predict  library(readr) directmail &amp;lt;- read_csv(&amp;quot;data/directmail.csv&amp;quot;) ## Parsed with column specification: ## cols( ## RESPOND = col_double(), ## AGE = col_double(), ## BUY18 = col_double(), ## CLIMATE = col_double(), ## FICO = col_double(), ## INCOME = col_double(), ## MARRIED = col_double(), ## OWNHOME = col_double(), ## GENDER = col_character() ## ) #remove all na complete = complete.cases(directmail) directmail &amp;lt;- directmail[complete,] directmail ## # A tibble: 9,727 x 9 ## RESPOND AGE BUY18 CLIMATE FICO INCOME MARRIED OWNHOME GENDER ## &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt; ## 1 0 71 1 10 719 67 1 0 M ## 2 0 53 0 10 751 72 1 0 M ## 3 0 53 1 10 725 70 1 0 F ## 4 0 45 1 10 684 56 0 0 F ## 5 0 32 0 10 651 66 0 0 F ## 6 0 35 0 10 691 48 0 1 F ## 7 0 43 0 10 694 49 0 1 F ## 8 0 39 0 10 659 64 0 0 M ## 9 0 66 0 10 692 65 0 0 M ## 10 0 52 2 10 705 58 1 1 M ## # … with 9,717 more rows nobs=nrow(directmail) #normalization nor = function(x) {x-min(x)/(max(x)-min(x))} directmail$AGE &amp;lt;- nor(directmail$AGE) directmail$CLIMATE &amp;lt;- nor(directmail$CLIMATE) directmail$FICO &amp;lt;- nor(directmail$FICO) directmail$INCOME &amp;lt;- nor(directmail$INCOME) directmail$GENDER &amp;lt;- as.</description>
+    </item>
+    
+    <item>
       <title>R Basic Code</title>
       <link>/2020/06/02/r-basic-code/</link>
       <pubDate>Tue, 02 Jun 2020 00:00:00 +0000</pubDate>

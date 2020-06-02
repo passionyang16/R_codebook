@@ -1,0 +1,114 @@
+---
+title: R Machine Learning Codebook (Part 2)
+author: JungYul Yang
+date: '2020-06-03'
+slug: r-machine-learning-codebook-part-2
+categories: []
+tags: []
+---
+
+4. Neural Network
+- used regardless of response variable, but intended to predict
+
+```{r}
+library(readr)
+directmail <- read_csv("data/directmail.csv")
+#remove all na
+complete = complete.cases(directmail)
+directmail <- directmail[complete,]
+directmail
+nobs=nrow(directmail)
+
+#normalization
+nor = function(x) {x-min(x)/(max(x)-min(x))}
+directmail$AGE <- nor(directmail$AGE)
+directmail$CLIMATE <- nor(directmail$CLIMATE)
+directmail$FICO <- nor(directmail$FICO)
+directmail$INCOME <- nor(directmail$INCOME)
+directmail$GENDER <- as.numeric(directmail$GENDER == "F")
+
+```
+
+
+```{r}
+#split
+set.seed(1234)
+i = sample(1:nobs, round(nobs*0.7))
+train = directmail[i,]
+test = directmail[-i,]
+nrow(train);nrow(test)
+```
+
+Neural Network Fitting
+```{r}
+#stepmax : iteration, threshold: error variation, act.fact : function
+library(neuralnet)
+nn <- neuralnet(RESPOND ~ AGE+BUY18+CLIMATE+FICO+INCOME+MARRIED+OWNHOME+GENDER,
+                data=train, hidden=3, step = 1e+05, threshold = 0.01,
+                act.fct = 'logistic', linear.output=F)
+plot(nn)
+```
+
+
+Prediction
+```{r}
+pred <- compute(nn, covariate=test[,-1])
+```
+
+
+5. Ensemble
+(1) Bagging
+
+```{r}
+german = read.table("data/germandata.txt",header=T)
+german$numcredits = factor(german$numcredits)
+german$residence = factor(german$residence)
+german$residpeople = factor(german$residpeople)
+summary(german)
+
+```
+
+Bagging Fitting
+
+```{r}
+library(rpart)
+library(adabag)
+
+set.seed(1234)
+my.control <- rpart.control(xval=0, cp=0, minsplit=5, maxdepth=10)
+bag.german <- bagging(y ~ . , data=german, mfinal=50, control=my.control)
+summary(bag.german)
+```
+
+Variable Importance
+```{r}
+print(bag.german$importance)
+importanceplot(bag.german)
+```
+
+Prediction
+```{r}
+pred.bag.german <- predict.bagging(bag.german, newdata=german)
+head(pred.bag.german$prob,10)
+```
+
+Confusion matrix
+```{r}
+print(pred.bag.german$confusion)
+```
+
+(2) Boosting
+
+```{r}
+my.control <- rpart.control(xval=0,cp=0, maxdepth=1)
+boo.german <- boosting(y ~ . , data=german, boos=T, mfinal=100, control=my.control)
+summary(boo.german)
+```
+
+```{r}
+
+evol.german = errorevol(boo.german, newdata=german)
+plot.errorevol(evol.german)
+```
+
+
