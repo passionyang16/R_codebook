@@ -1,0 +1,223 @@
+---
+title: R Basic Code
+author: JungYul Yang
+date: '2020-06-02'
+slug: r-basic-code
+categories: []
+tags: []
+---
+
+
+
+<p>Here are some useful r codes to implement:</p>
+<p>Mathematical functions</p>
+<pre class="r"><code>log(3)</code></pre>
+<pre><code>## [1] 1.098612</code></pre>
+<pre class="r"><code>exp(2)</code></pre>
+<pre><code>## [1] 7.389056</code></pre>
+<pre class="r"><code>sqrt(4)</code></pre>
+<pre><code>## [1] 2</code></pre>
+<pre class="r"><code>#Rounding
+round(3.78,1)</code></pre>
+<pre><code>## [1] 3.8</code></pre>
+<pre class="r"><code>#Absolute Value
+abs(-3)</code></pre>
+<pre><code>## [1] 3</code></pre>
+<p>Special Values</p>
+<pre class="r"><code>#NA multiplication
+5*NA</code></pre>
+<pre><code>## [1] NA</code></pre>
+<pre class="r"><code>#Nan : Not a Number
+0/0</code></pre>
+<pre><code>## [1] NaN</code></pre>
+<pre class="r"><code>x &lt;- NaN
+#Check whether x is na
+is.na(x)</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<pre class="r"><code>x == NA</code></pre>
+<pre><code>## [1] NA</code></pre>
+<p>Data Structure</p>
+<p>Vectors</p>
+<pre class="r"><code>#vector expression
+c(2,4,5,6)</code></pre>
+<pre><code>## [1] 2 4 5 6</code></pre>
+<pre class="r"><code>#sequence
+seq(1,10,by=3) </code></pre>
+<pre><code>## [1]  1  4  7 10</code></pre>
+<pre class="r"><code>#repetition
+rep(1:4,each=2,times=3)</code></pre>
+<pre><code>##  [1] 1 1 2 2 3 3 4 4 1 1 2 2 3 3 4 4 1 1 2 2 3 3 4 4</code></pre>
+<pre class="r"><code>x &lt;- c(1,2,3,4,5)
+#indexing
+x[2:3]</code></pre>
+<pre><code>## [1] 2 3</code></pre>
+<pre class="r"><code>x[-(3:4)]</code></pre>
+<pre><code>## [1] 1 2 5</code></pre>
+<pre class="r"><code>v &lt;- c(2,3,4,5,6)
+#put a new number
+v[v&gt;4] &lt;- 0
+v</code></pre>
+<pre><code>## [1] 2 3 4 0 0</code></pre>
+<p>Vector Calculation</p>
+<pre class="r"><code>#Add
+c(2,3,4) + c(5,6,7)</code></pre>
+<pre><code>## [1]  7  9 11</code></pre>
+<pre class="r"><code>x &lt;- c(2,3,4)
+#expressions
+max(x)</code></pre>
+<pre><code>## [1] 4</code></pre>
+<pre class="r"><code>quantile(x)</code></pre>
+<pre><code>##   0%  25%  50%  75% 100% 
+##  2.0  2.5  3.0  3.5  4.0</code></pre>
+<pre class="r"><code>tmp &lt;- 0:10
+sum(tmp)</code></pre>
+<pre><code>## [1] 55</code></pre>
+<pre class="r"><code>#partial sum
+sum(tmp[tmp&lt;5])</code></pre>
+<pre><code>## [1] 10</code></pre>
+<pre class="r"><code>v &lt;- c(3,1,2,17,9,19)
+#sorting
+sort(v)</code></pre>
+<pre><code>## [1]  1  2  3  9 17 19</code></pre>
+<p>Matrix</p>
+<pre class="r"><code># byrow=True : row direction, names set the name for row and col
+x &lt;- matrix(1:8,nrow=4,ncol=2,byrow=TRUE)
+rownames(x) &lt;-c(&quot;r1&quot;,&quot;r2&quot;,&quot;r3&quot;,&quot;r4&quot;)
+colnames(x) &lt;-c(&quot;c1&quot;,&quot;c2&quot;)
+x</code></pre>
+<pre><code>##    c1 c2
+## r1  1  2
+## r2  3  4
+## r3  5  6
+## r4  7  8</code></pre>
+<pre class="r"><code># cbind: binding through column
+cbind(1:3,5:7)</code></pre>
+<pre><code>##      [,1] [,2]
+## [1,]    1    5
+## [2,]    2    6
+## [3,]    3    7</code></pre>
+<pre class="r"><code># rbind: binding through row
+rbind(1:2,3:4)</code></pre>
+<pre><code>##      [,1] [,2]
+## [1,]    1    2
+## [2,]    3    4</code></pre>
+<pre class="r"><code># matrix indexing
+x[3,2]</code></pre>
+<pre><code>## [1] 6</code></pre>
+<pre class="r"><code>x[,2]</code></pre>
+<pre><code>## r1 r2 r3 r4 
+##  2  4  6  8</code></pre>
+<pre class="r"><code>x[-c(1,3),]</code></pre>
+<pre><code>##    c1 c2
+## r2  3  4
+## r4  7  8</code></pre>
+<p>Matrix Calculation</p>
+<pre class="r"><code>m1 &lt;- matrix(1:4,nrow=2)
+m2 &lt;- matrix(5:8,nrow=2)
+#Add
+m1+m2</code></pre>
+<pre><code>##      [,1] [,2]
+## [1,]    6   10
+## [2,]    8   12</code></pre>
+<pre class="r"><code>#Multiply element-wise
+m1*m2</code></pre>
+<pre><code>##      [,1] [,2]
+## [1,]    5   21
+## [2,]   12   32</code></pre>
+<pre class="r"><code>#inner product
+m1%*%m2</code></pre>
+<pre><code>##      [,1] [,2]
+## [1,]   23   31
+## [2,]   34   46</code></pre>
+<pre class="r"><code>#diagonal matrix
+diag(3)</code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    0    0
+## [2,]    0    1    0
+## [3,]    0    0    1</code></pre>
+<pre class="r"><code>diag(1:4)</code></pre>
+<pre><code>##      [,1] [,2] [,3] [,4]
+## [1,]    1    0    0    0
+## [2,]    0    2    0    0
+## [3,]    0    0    3    0
+## [4,]    0    0    0    4</code></pre>
+<pre class="r"><code>#apply the equation, 1:row, 2:column
+apply(m1,1,sum)</code></pre>
+<pre><code>## [1] 4 6</code></pre>
+<pre class="r"><code>apply(m2,2,prod)</code></pre>
+<pre><code>## [1] 30 56</code></pre>
+<pre class="r"><code>#inverse
+solve(m1)</code></pre>
+<pre><code>##      [,1] [,2]
+## [1,]   -2  1.5
+## [2,]    1 -0.5</code></pre>
+<pre class="r"><code>#determinant
+det(m1)</code></pre>
+<pre><code>## [1] -2</code></pre>
+<p>Factors</p>
+<pre class="r"><code># factor makes vector as categorical data
+x &lt;- c(3,2,1,3,1,2,3,3,1,2,3,3,1)
+factor(x)</code></pre>
+<pre><code>##  [1] 3 2 1 3 1 2 3 3 1 2 3 3 1
+## Levels: 1 2 3</code></pre>
+<pre class="r"><code>factorized &lt;- factor(x,levels=c(0,1,2,3),labels=c(&quot;a&quot;,&quot;b&quot;,&quot;c&quot;,&quot;d&quot;))
+factorized</code></pre>
+<pre><code>##  [1] d c b d b c d d b c d d b
+## Levels: a b c d</code></pre>
+<p>Lists</p>
+<pre class="r"><code>#List can have different types of data in one
+L &lt;- list (name=c(&#39;A&#39;,&#39;B&#39;),age=c(25,24),color=c(&#39;red&#39;,&#39;blue&#39;))
+L</code></pre>
+<pre><code>## $name
+## [1] &quot;A&quot; &quot;B&quot;
+## 
+## $age
+## [1] 25 24
+## 
+## $color
+## [1] &quot;red&quot;  &quot;blue&quot;</code></pre>
+<pre class="r"><code>L[[2]][1]</code></pre>
+<pre><code>## [1] 25</code></pre>
+<pre class="r"><code>L2 &lt;- list(v=c(1,2,3),m=matrix(1:6,nrow=3),text=c(&quot;Hello&quot;,&quot;world&quot;))
+L2</code></pre>
+<pre><code>## $v
+## [1] 1 2 3
+## 
+## $m
+##      [,1] [,2]
+## [1,]    1    4
+## [2,]    2    5
+## [3,]    3    6
+## 
+## $text
+## [1] &quot;Hello&quot; &quot;world&quot;</code></pre>
+<p>Dataframe</p>
+<pre class="r"><code>group &lt;- data.frame(name=c(&quot;A&quot;,&quot;B&quot;,&quot;C&quot;,&quot;D&quot;,&quot;E&quot;),
+                    gender=c(&quot;M&quot;,&quot;F&quot;,&quot;F&quot;,&quot;M&quot;,&quot;F&quot;),
+                    color=c(&quot;red&quot;,&quot;blue&quot;,&quot;green&quot;,&quot;yellow&quot;,&quot;pink&quot;),
+                    income=c(&quot;100&quot;,&quot;200&quot;,&quot;300&quot;,&quot;400&quot;,&quot;500&quot;))
+group</code></pre>
+<pre><code>##   name gender  color income
+## 1    A      M    red    100
+## 2    B      F   blue    200
+## 3    C      F  green    300
+## 4    D      M yellow    400
+## 5    E      F   pink    500</code></pre>
+<pre class="r"><code>#summary
+summary(group)</code></pre>
+<pre><code>##  name  gender    color   income 
+##  A:1   F:3    blue  :1   100:1  
+##  B:1   M:2    green :1   200:1  
+##  C:1          pink  :1   300:1  
+##  D:1          red   :1   400:1  
+##  E:1          yellow:1   500:1</code></pre>
+<pre class="r"><code>#indexing [row,column], - means remove
+group$income</code></pre>
+<pre><code>## [1] 100 200 300 400 500
+## Levels: 100 200 300 400 500</code></pre>
+<pre class="r"><code>group$gender[2]</code></pre>
+<pre><code>## [1] F
+## Levels: F M</code></pre>
+<pre class="r"><code>group[,&quot;income&quot;]</code></pre>
+<pre><code>## [1] 100 200 300 400 500
+## Levels: 100 200 300 400 500</code></pre>

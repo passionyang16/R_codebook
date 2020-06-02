@@ -1,0 +1,157 @@
+---
+title: R Machine Learning Codebook (Part 1)
+author: JungYul Yang
+date: '2020-06-02'
+slug: r-machine-learning
+categories:
+  - R
+tags: []
+---
+
+R Machine Learning Codebook (Part 1)
+
+1. Linear Regression
+- Used when response variable is 'numerical' variable
+
+```{r}
+getwd()
+library(readr)
+#information for data
+usedcar2 <- read_csv("data/usedcar2.csv")
+usedcar2
+```
+
+Encoding categorical variable
+
+```{r}
+usedcar2$Ind1 <- as.numeric(usedcar2$Color == 'white')
+usedcar2$Ind2 <- as.numeric(usedcar2$Color == 'silver')
+usedcar2
+```
+
+Regression Fitting
+
+```{r}
+lm_used <- lm(Price ~ Odometer + Ind1 + Ind2, data=usedcar2)
+summary(lm_used)
+```
+
+Plot
+
+```{r}
+plot(lm_used,which=2)
+plot(lm_used,which=1)
+```
+
+Things need to check for linear regression
+1. Independence
+2. Normality
+3. Homoscedasticity
+
+
+X variable Selection
+
+```{r}
+#both = stepwise elimination, backward = backward elimination, forward = forward selection
+step_used <- step(lm_used, direction='both')
+summary(step_used)
+```
+
+Interaction 
+
+```{r}
+int_used <- lm(Price ~ Odometer+Ind1+Ind2+Ind1:Odometer+Ind2:Odometer,data=usedcar2)
+summary(int_used)
+```
+
+Train Test split
+
+```{r}
+set.seed(1234)
+nobs=nrow(usedcar2)
+#train:test = 70:30
+i = sample(1:nobs, round(nobs*0.7))
+train = usedcar2[i,]
+test= usedcar2[-i,]
+nrow(train);nrow(test)
+```
+
+Prediction and correlation
+
+```{r}
+
+model = lm(Price ~ Odometer + Ind1 + Ind2, data=train)
+pred = predict(model, newdata=test, type = 'response')
+pred
+cor(test$Price,pred)^2
+
+```
+
+2. Logistic Regression
+- Used when response variable is 'categorical' variable
+
+```{r}
+directmail <- read_csv("data/directmail.csv")
+#remove all na
+complete = complete.cases(directmail)
+directmail <- directmail[complete,]
+directmail
+nobs=nrow(directmail)
+#train:test = 70:30
+i = sample(1:nobs, round(nobs*0.7))
+train = directmail[i,]
+test= directmail[-i,]
+nrow(train);nrow(test)
+```
+
+Logistic Fitting
+
+```{r}
+full_model = glm(RESPOND ~ AGE+BUY18+CLIMATE+FICO+INCOME+MARRIED+OWNHOME+GENDER,
+                 family='binomial',data=directmail)
+summary(full_model)
+```
+
+Predict Probability
+```{r}
+prob_pred = predict(full_model, newdata=test, type="response")
+```
+
+ROC CURVE
+```{r}
+library(pROC)
+roccurve <- roc(test$RESPOND ~ prob_pred)
+plot(roccurve,col="red",print.auc=TRUE, print.auc.adj=c(1,-7),auc.polygon=TRUE)
+```
+
+
+3. Decision Trees
+
+- Used regardless of the type of response variable
+
+```{r}
+library(readr)
+titanic <- read_csv("data/titanic.csv")
+titanic
+```
+
+Tree Fitting
+
+```{r}
+#class represents tree where anova represents regression tree
+library(rpart)
+library(rpart.plot)
+D_tree <- rpart(Survived ~ Class+Sex+Age, data=titanic, method='class')
+print(D_tree)
+prp(D_tree, type=4, extra=2, digits=3)
+```
+
+More parameters to control
+
+```{r}
+set.seed(1234)
+my.control <- rpart.control(xval=10,cp=0.001)
+```
+
+hello
+

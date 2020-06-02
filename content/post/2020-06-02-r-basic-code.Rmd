@@ -1,0 +1,165 @@
+---
+title: R Basic Code
+author: JungYul Yang
+date: '2020-06-02'
+slug: r-basic-code
+categories: []
+tags: []
+---
+Here are some useful r codes to implement:
+
+Mathematical functions
+
+```{r}
+log(3)
+exp(2)
+sqrt(4)
+#Rounding
+round(3.78,1)
+#Absolute Value
+abs(-3)
+```
+
+Special Values
+
+```{r}
+#NA multiplication
+5*NA
+#Nan : Not a Number
+0/0
+x <- NaN
+#Check whether x is na
+is.na(x)
+x == NA
+```
+
+Data Structure
+
+
+Vectors
+
+```{r}
+#vector expression
+c(2,4,5,6)
+#sequence
+seq(1,10,by=3) 
+#repetition
+rep(1:4,each=2,times=3)
+x <- c(1,2,3,4,5)
+#indexing
+x[2:3]
+x[-(3:4)]
+v <- c(2,3,4,5,6)
+#put a new number
+v[v>4] <- 0
+v
+```
+
+Vector Calculation
+
+```{r}
+#Add
+c(2,3,4) + c(5,6,7)
+x <- c(2,3,4)
+#expressions
+max(x)
+quantile(x)
+tmp <- 0:10
+sum(tmp)
+#partial sum
+sum(tmp[tmp<5])
+v <- c(3,1,2,17,9,19)
+#sorting
+sort(v)
+```
+
+Matrix
+
+```{r}
+# byrow=True : row direction, names set the name for row and col
+x <- matrix(1:8,nrow=4,ncol=2,byrow=TRUE)
+rownames(x) <-c("r1","r2","r3","r4")
+colnames(x) <-c("c1","c2")
+x
+# cbind: binding through column
+cbind(1:3,5:7)
+# rbind: binding through row
+rbind(1:2,3:4)
+
+# matrix indexing
+x[3,2]
+x[,2]
+x[-c(1,3),]
+```
+
+Matrix Calculation
+
+
+```{r}
+m1 <- matrix(1:4,nrow=2)
+m2 <- matrix(5:8,nrow=2)
+#Add
+m1+m2
+#Multiply element-wise
+m1*m2
+#inner product
+m1%*%m2
+#diagonal matrix
+diag(3)
+diag(1:4)
+#apply the equation, 1:row, 2:column
+apply(m1,1,sum)
+apply(m2,2,prod)
+#inverse
+solve(m1)
+#determinant
+det(m1)
+```
+
+Factors
+
+
+```{r}
+# factor makes vector as categorical data
+x <- c(3,2,1,3,1,2,3,3,1,2,3,3,1)
+factor(x)
+
+factorized <- factor(x,levels=c(0,1,2,3),labels=c("a","b","c","d"))
+factorized
+
+
+```
+
+
+Lists
+
+```{r}
+#List can have different types of data in one
+L <- list (name=c('A','B'),age=c(25,24),color=c('red','blue'))
+L
+L[[2]][1]
+
+L2 <- list(v=c(1,2,3),m=matrix(1:6,nrow=3),text=c("Hello","world"))
+L2
+```
+
+Dataframe
+
+```{r}
+group <- data.frame(name=c("A","B","C","D","E"),
+                    gender=c("M","F","F","M","F"),
+                    color=c("red","blue","green","yellow","pink"),
+                    income=c("100","200","300","400","500"))
+group
+
+#summary
+summary(group)
+#indexing [row,column], - means remove
+group$income
+group$gender[2]
+group[,"income"]
+
+
+```
+
+

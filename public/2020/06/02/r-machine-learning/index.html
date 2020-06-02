@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Hugo 0.69.0" />
+
+
+<title>R Machine Learning Codebook (Part 1) - A Hugo website</title>
+<meta property="og:title" content="R Machine Learning Codebook (Part 1) - A Hugo website">
+
+
+  <link href='/favicon.ico' rel='icon' type='image/x-icon'/>
+
+
+
+  
+
+
+
+
+
+
+
+
+<link href='//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+<link rel="stylesheet" href="/css/fonts.css" media="all">
+<link rel="stylesheet" href="/css/main.css" media="all">
+
+
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="/" class="nav-logo">
+    <img src="/images/logo.png"
+         width="50"
+         height="50"
+         alt="Logo">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="/about/">About</a></li>
+    
+    <li><a href="https://github.com/rstudio/blogdown">GitHub</a></li>
+    
+    <li><a href="https://twitter.com/rstudio">Twitter</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+
+  <article class="article">
+    
+    <span class="article-duration">8 min read</span>
+    
+
+    <h1 class="article-title">R Machine Learning Codebook (Part 1)</h1>
+
+    
+    <span class="article-date">2020-06-02</span>
+    
+
+    <div class="article-content">
+      
+
+
+<p>R Machine Learning Codebook (Part 1)</p>
+<ol style="list-style-type: decimal">
+<li>Linear Regression</li>
+</ol>
+<ul>
+<li>Used when response variable is ‘numerical’ variable</li>
+</ul>
+<pre class="r"><code>getwd()</code></pre>
+<pre><code>## [1] &quot;/Users/jungyulyang/programming/school/r_blog/content/post&quot;</code></pre>
+<pre class="r"><code>library(readr)
+#information for data
+usedcar2 &lt;- read_csv(&quot;data/usedcar2.csv&quot;)</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   Price = col_double(),
+##   Odometer = col_double(),
+##   Color = col_character()
+## )</code></pre>
+<pre class="r"><code>usedcar2</code></pre>
+<pre><code>## # A tibble: 100 x 3
+##    Price Odometer Color
+##    &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;
+##  1 14636    37388 white
+##  2 14122    44758 white
+##  3 14470    45854 white
+##  4 15072    40149 white
+##  5 14802    40237 white
+##  6 14660    43533 white
+##  7 15612    32744 white
+##  8 14632    41350 white
+##  9 15008    35781 white
+## 10 14666    48613 white
+## # … with 90 more rows</code></pre>
+<p>Encoding categorical variable</p>
+<pre class="r"><code>usedcar2$Ind1 &lt;- as.numeric(usedcar2$Color == &#39;white&#39;)
+usedcar2$Ind2 &lt;- as.numeric(usedcar2$Color == &#39;silver&#39;)
+usedcar2</code></pre>
+<pre><code>## # A tibble: 100 x 5
+##    Price Odometer Color  Ind1  Ind2
+##    &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1 14636    37388 white     1     0
+##  2 14122    44758 white     1     0
+##  3 14470    45854 white     1     0
+##  4 15072    40149 white     1     0
+##  5 14802    40237 white     1     0
+##  6 14660    43533 white     1     0
+##  7 15612    32744 white     1     0
+##  8 14632    41350 white     1     0
+##  9 15008    35781 white     1     0
+## 10 14666    48613 white     1     0
+## # … with 90 more rows</code></pre>
+<p>Regression Fitting</p>
+<pre class="r"><code>lm_used &lt;- lm(Price ~ Odometer + Ind1 + Ind2, data=usedcar2)
+summary(lm_used)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = Price ~ Odometer + Ind1 + Ind2, data = usedcar2)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -664.58 -193.42   -5.78  197.38  639.46 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  1.670e+04  1.843e+02  90.600  &lt; 2e-16 ***
+## Odometer    -5.554e-02  4.737e-03 -11.724  &lt; 2e-16 ***
+## Ind1         9.048e+01  6.817e+01   1.327 0.187551    
+## Ind2         2.955e+02  7.637e+01   3.869 0.000199 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 284.5 on 96 degrees of freedom
+## Multiple R-squared:  0.698,  Adjusted R-squared:  0.6886 
+## F-statistic: 73.97 on 3 and 96 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>Plot</p>
+<pre class="r"><code>plot(lm_used,which=2)</code></pre>
+<p><img src="/post/2020-06-02-r-machine-learning-codebook-part-1_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<pre class="r"><code>plot(lm_used,which=1)</code></pre>
+<p><img src="/post/2020-06-02-r-machine-learning-codebook-part-1_files/figure-html/unnamed-chunk-4-2.png" width="672" /></p>
+<p>Things need to check for linear regression
+1. Independence
+2. Normality
+3. Homoscedasticity</p>
+<p>X variable Selection</p>
+<pre class="r"><code>#both = stepwise elimination, backward = backward elimination, forward = forward selection
+step_used &lt;- step(lm_used, direction=&#39;both&#39;)</code></pre>
+<pre><code>## Start:  AIC=1134.09
+## Price ~ Odometer + Ind1 + Ind2
+## 
+##            Df Sum of Sq      RSS    AIC
+## - Ind1      1    142641  7915205 1133.9
+## &lt;none&gt;                   7772564 1134.1
+## - Ind2      1   1211971  8984535 1146.6
+## - Odometer  1  11129137 18901701 1221.0
+## 
+## Step:  AIC=1133.91
+## Price ~ Odometer + Ind2
+## 
+##            Df Sum of Sq      RSS    AIC
+## &lt;none&gt;                   7915205 1133.9
+## + Ind1      1    142641  7772564 1134.1
+## - Ind2      1   1090245  9005450 1144.8
+## - Odometer  1  11056747 18971952 1219.3</code></pre>
+<pre class="r"><code>summary(step_used)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = Price ~ Odometer + Ind2, data = usedcar2)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -713.81 -199.46    0.95  183.30  683.18 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  1.674e+04  1.826e+02  91.683  &lt; 2e-16 ***
+## Odometer    -5.533e-02  4.753e-03 -11.640  &lt; 2e-16 ***
+## Ind2         2.489e+02  6.809e+01   3.655 0.000417 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 285.7 on 97 degrees of freedom
+## Multiple R-squared:  0.6925, Adjusted R-squared:  0.6861 
+## F-statistic: 109.2 on 2 and 97 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>Interaction</p>
+<pre class="r"><code>int_used &lt;- lm(Price ~ Odometer+Ind1+Ind2+Ind1:Odometer+Ind2:Odometer,data=usedcar2)
+summary(int_used)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = Price ~ Odometer + Ind1 + Ind2 + Ind1:Odometer + 
+##     Ind2:Odometer, data = usedcar2)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -632.76 -173.28   -7.88  183.62  712.02 
+## 
+## Coefficients:
+##                 Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)    1.708e+04  2.776e+02  61.515  &lt; 2e-16 ***
+## Odometer      -6.563e-02  7.292e-03  -9.001 2.45e-14 ***
+## Ind1          -8.153e+02  4.180e+02  -1.950   0.0541 .  
+## Ind2          -3.014e+01  4.061e+02  -0.074   0.9410    
+## Odometer:Ind1  2.399e-02  1.093e-02   2.195   0.0306 *  
+## Odometer:Ind2  8.445e-03  1.169e-02   0.723   0.4717    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 280.4 on 94 degrees of freedom
+## Multiple R-squared:  0.7129, Adjusted R-squared:  0.6976 
+## F-statistic: 46.68 on 5 and 94 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>Train Test split</p>
+<pre class="r"><code>set.seed(1234)
+nobs=nrow(usedcar2)
+#train:test = 70:30
+i = sample(1:nobs, round(nobs*0.7))
+train = usedcar2[i,]
+test= usedcar2[-i,]
+nrow(train);nrow(test)</code></pre>
+<pre><code>## [1] 70</code></pre>
+<pre><code>## [1] 30</code></pre>
+<p>Prediction and correlation</p>
+<pre class="r"><code>model = lm(Price ~ Odometer + Ind1 + Ind2, data=train)
+pred = predict(model, newdata=test, type = &#39;response&#39;)
+pred</code></pre>
+<pre><code>##        1        2        3        4        5        6        7        8 
+## 14676.73 15410.82 14222.10 14947.62 14239.45 14428.65 14392.39 14780.56 
+##        9       10       11       12       13       14       15       16 
+## 14637.97 14690.80 14919.48 14576.19 15154.04 15568.29 15190.30 15879.67 
+##       17       18       19       20       21       22       23       24 
+## 15118.95 15847.80 15429.82 14124.72 14957.29 14633.57 14539.03 15226.01 
+##       25       26       27       28       29       30 
+## 14735.85 14372.92 14047.14 14946.89 14493.71 14658.32</code></pre>
+<pre class="r"><code>cor(test$Price,pred)^2</code></pre>
+<pre><code>## [1] 0.6832043</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Logistic Regression</li>
+</ol>
+<ul>
+<li>Used when response variable is ‘categorical’ variable</li>
+</ul>
+<pre class="r"><code>directmail &lt;- read_csv(&quot;data/directmail.csv&quot;)</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   RESPOND = col_double(),
+##   AGE = col_double(),
+##   BUY18 = col_double(),
+##   CLIMATE = col_double(),
+##   FICO = col_double(),
+##   INCOME = col_double(),
+##   MARRIED = col_double(),
+##   OWNHOME = col_double(),
+##   GENDER = col_character()
+## )</code></pre>
+<pre class="r"><code>#remove all na
+complete = complete.cases(directmail)
+directmail &lt;- directmail[complete,]
+directmail</code></pre>
+<pre><code>## # A tibble: 9,727 x 9
+##    RESPOND   AGE BUY18 CLIMATE  FICO INCOME MARRIED OWNHOME GENDER
+##      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt; 
+##  1       0    71     1      10   719     67       1       0 M     
+##  2       0    53     0      10   751     72       1       0 M     
+##  3       0    53     1      10   725     70       1       0 F     
+##  4       0    45     1      10   684     56       0       0 F     
+##  5       0    32     0      10   651     66       0       0 F     
+##  6       0    35     0      10   691     48       0       1 F     
+##  7       0    43     0      10   694     49       0       1 F     
+##  8       0    39     0      10   659     64       0       0 M     
+##  9       0    66     0      10   692     65       0       0 M     
+## 10       0    52     2      10   705     58       1       1 M     
+## # … with 9,717 more rows</code></pre>
+<pre class="r"><code>nobs=nrow(directmail)
+#train:test = 70:30
+i = sample(1:nobs, round(nobs*0.7))
+train = directmail[i,]
+test= directmail[-i,]
+nrow(train);nrow(test)</code></pre>
+<pre><code>## [1] 6809</code></pre>
+<pre><code>## [1] 2918</code></pre>
+<p>Logistic Fitting</p>
+<pre class="r"><code>full_model = glm(RESPOND ~ AGE+BUY18+CLIMATE+FICO+INCOME+MARRIED+OWNHOME+GENDER,
+                 family=&#39;binomial&#39;,data=directmail)
+summary(full_model)</code></pre>
+<pre><code>## 
+## Call:
+## glm(formula = RESPOND ~ AGE + BUY18 + CLIMATE + FICO + INCOME + 
+##     MARRIED + OWNHOME + GENDER, family = &quot;binomial&quot;, data = directmail)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -1.1544  -0.4275  -0.3582  -0.2941   2.9353  
+## 
+## Coefficients:
+##              Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)  2.713421   0.948186   2.862  0.00421 ** 
+## AGE         -0.037951   0.004469  -8.491  &lt; 2e-16 ***
+## BUY18        0.461354   0.058442   7.894 2.92e-15 ***
+## CLIMATE     -0.020629   0.006271  -3.289  0.00100 ** 
+## FICO        -0.004988   0.001326  -3.760  0.00017 ***
+## INCOME      -0.001425   0.002499  -0.570  0.56851    
+## MARRIED      0.534643   0.090075   5.936 2.93e-09 ***
+## OWNHOME     -0.421534   0.090408  -4.663 3.12e-06 ***
+## GENDERM     -0.076648   0.079758  -0.961  0.33655    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 5179.6  on 9726  degrees of freedom
+## Residual deviance: 4977.5  on 9718  degrees of freedom
+## AIC: 4995.5
+## 
+## Number of Fisher Scoring iterations: 5</code></pre>
+<p>Predict Probability</p>
+<pre class="r"><code>prob_pred = predict(full_model, newdata=test, type=&quot;response&quot;)</code></pre>
+<p>ROC CURVE</p>
+<pre class="r"><code>library(pROC)</code></pre>
+<pre><code>## Type &#39;citation(&quot;pROC&quot;)&#39; for a citation.</code></pre>
+<pre><code>## 
+## Attaching package: &#39;pROC&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     cov, smooth, var</code></pre>
+<pre class="r"><code>roccurve &lt;- roc(test$RESPOND ~ prob_pred)</code></pre>
+<pre><code>## Setting levels: control = 0, case = 1</code></pre>
+<pre><code>## Setting direction: controls &lt; cases</code></pre>
+<pre class="r"><code>plot(roccurve,col=&quot;red&quot;,print.auc=TRUE, print.auc.adj=c(1,-7),auc.polygon=TRUE)</code></pre>
+<p><img src="/post/2020-06-02-r-machine-learning-codebook-part-1_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<ol start="3" style="list-style-type: decimal">
+<li>Decision Trees</li>
+</ol>
+<ul>
+<li>Used regardless of the type of response variable</li>
+</ul>
+<pre class="r"><code>library(readr)
+titanic &lt;- read_csv(&quot;data/titanic.csv&quot;)</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   Class = col_character(),
+##   Age = col_character(),
+##   Sex = col_character(),
+##   Survived = col_character()
+## )</code></pre>
+<pre class="r"><code>titanic</code></pre>
+<pre><code>## # A tibble: 2,201 x 4
+##    Class Age   Sex   Survived
+##    &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;   
+##  1 First Adult Male  Yes     
+##  2 First Adult Male  Yes     
+##  3 First Adult Male  Yes     
+##  4 First Adult Male  Yes     
+##  5 First Adult Male  Yes     
+##  6 First Adult Male  Yes     
+##  7 First Adult Male  Yes     
+##  8 First Adult Male  Yes     
+##  9 First Adult Male  Yes     
+## 10 First Adult Male  Yes     
+## # … with 2,191 more rows</code></pre>
+<p>Tree Fitting</p>
+<pre class="r"><code>#class represents tree where anova represents regression tree
+library(rpart)
+library(rpart.plot)
+D_tree &lt;- rpart(Survived ~ Class+Sex+Age, data=titanic, method=&#39;class&#39;)
+print(D_tree)</code></pre>
+<pre><code>## n= 2201 
+## 
+## node), split, n, loss, yval, (yprob)
+##       * denotes terminal node
+## 
+##  1) root 2201 711 No (0.6769650 0.3230350)  
+##    2) Sex=Male 1731 367 No (0.7879838 0.2120162)  
+##      4) Age=Adult 1667 338 No (0.7972406 0.2027594) *
+##      5) Age=Child 64  29 No (0.5468750 0.4531250)  
+##       10) Class=Third 48  13 No (0.7291667 0.2708333) *
+##       11) Class=First,Second 16   0 Yes (0.0000000 1.0000000) *
+##    3) Sex=Female 470 126 Yes (0.2680851 0.7319149)  
+##      6) Class=Third 196  90 No (0.5408163 0.4591837) *
+##      7) Class=Crew,First,Second 274  20 Yes (0.0729927 0.9270073) *</code></pre>
+<pre class="r"><code>prp(D_tree, type=4, extra=2, digits=3)</code></pre>
+<p><img src="/post/2020-06-02-r-machine-learning-codebook-part-1_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<p>More parameters to control</p>
+<pre class="r"><code>set.seed(1234)
+my.control &lt;- rpart.control(xval=10,cp=0.001)</code></pre>
+<p>hello</p>
+
+    </div>
+  </article>
+
+  
+
+
+</main>
+
+      <footer class="footer">
+        <ul class="footer-links">
+          <li>
+            <a href="/index.xml" type="application/rss+xml" target="_blank">RSS feed</a>
+          </li>
+          <li>
+            <a href="https://gohugo.io/" class="footer-links-kudos">Made with <img src="/images/hugo-logo.png" alt="Img link to Hugo website" width="22" height="22"></a>
+          </li>
+        </ul>
+      </footer>
+
+    </div>
+    
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+<script src="/js/math-code.js"></script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+    
+  </body>
+</html>
+
