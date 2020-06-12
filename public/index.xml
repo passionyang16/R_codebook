@@ -21,6 +21,15 @@
     </item>
     
     <item>
+      <title>R Machine Learning Codebook (Part 3)</title>
+      <link>/2020/06/03/r-machine-learning-codebook-part-3/</link>
+      <pubDate>Wed, 03 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/06/03/r-machine-learning-codebook-part-3/</guid>
+      <description>Clustering   unsupervised learning, without response variable  Hierarchial Clustering  head(USArrests) ## Murder Assault UrbanPop Rape ## Alabama 13.2 236 58 21.2 ## Alaska 10.0 263 48 44.5 ## Arizona 8.1 294 80 31.0 ## Arkansas 8.8 190 50 19.5 ## California 9.0 276 91 40.6 ## Colorado 7.9 204 78 38.7 zUSArrests = scale(USArrests) summary(zUSArrests) ## Murder Assault UrbanPop Rape ## Min. :-1.6044 Min. :-1.5090 Min. :-2.</description>
+    </item>
+    
+    <item>
       <title>R Basic Code</title>
       <link>/2020/06/02/r-basic-code/</link>
       <pubDate>Tue, 02 Jun 2020 00:00:00 +0000</pubDate>
@@ -43,13 +52,25 @@ Linear Regression   Used when response variable is ‘numerical’ variable  get
     </item>
     
     <item>
-      <title>A Plain Markdown Post</title>
-      <link>/2016/12/30/a-plain-markdown-post/</link>
-      <pubDate>Fri, 30 Dec 2016 21:49:57 -0700</pubDate>
+      <title>Resume</title>
+      <link>/2020/06/01/resume/</link>
+      <pubDate>Mon, 01 Jun 2020 00:00:00 +0000</pubDate>
       
-      <guid>/2016/12/30/a-plain-markdown-post/</guid>
-      <description>This is a post written in plain Markdown (*.md) instead of R Markdown (*.Rmd). The major differences are:
- You cannot run any R code in a plain Markdown document, whereas in an R Markdown document, you can embed R code chunks (```{r}); A plain Markdown post is rendered through Blackfriday, and an R Markdown document is compiled by rmarkdown and Pandoc.  There are many differences in syntax between Blackfriday&amp;rsquo;s Markdown and Pandoc&amp;rsquo;s Markdown.</description>
+      <guid>/2020/06/01/resume/</guid>
+      <description>passionyang16@gmail.com
+010-2811-6370
+데이터 사이언스 관련 이력서입니다.
+사용언어: Python, R
+Projects 데이터 분석과 관련된 프로젝트 리스트입니다.
+데이콘 대회 Github
+사용 언어: Python
+지도 학습을 활용한 천체 유형 분류 분석
+ EDA를 통한 데이터 전처리, scikit learn 활용
+ 분류 분석에 유용한 앙상블 기법 중 XgBoost, LightGBM 사용
+ 데이터 마이닝 관련 필요한 과정 포함
+   부동산 가격 예측 프로그램 Github
+사용 언어: Python
+비지도 학습과 시계열 분석을 활용한 부동산 가격 예측</description>
     </item>
     
     <item>
@@ -59,26 +80,6 @@ Linear Regression   Used when response variable is ‘numerical’ variable  get
       
       <guid>/about/</guid>
       <description>This is a &amp;ldquo;hello world&amp;rdquo; example website for the blogdown package. The theme was forked from @jrutheiser/hugo-lithium-theme and modified by Yihui Xie.</description>
-    </item>
-    
-    <item>
-      <title>Hello R Markdown</title>
-      <link>/2015/07/23/hello-r-markdown/</link>
-      <pubDate>Thu, 23 Jul 2015 21:13:14 -0500</pubDate>
-      
-      <guid>/2015/07/23/hello-r-markdown/</guid>
-      <description>R Markdown This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see http://rmarkdown.rstudio.com.
-You can embed an R code chunk like this:
-summary(cars) ## speed dist ## Min. : 4.0 Min. : 2.00 ## 1st Qu.:12.0 1st Qu.: 26.00 ## Median :15.0 Median : 36.00 ## Mean :15.4 Mean : 42.98 ## 3rd Qu.</description>
-    </item>
-    
-    <item>
-      <title>Lorem Ipsum</title>
-      <link>/2015/01/01/lorem-ipsum/</link>
-      <pubDate>Thu, 01 Jan 2015 13:09:13 -0600</pubDate>
-      
-      <guid>/2015/01/01/lorem-ipsum/</guid>
-      <description>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</description>
     </item>
     
   </channel>

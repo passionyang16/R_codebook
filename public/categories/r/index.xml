@@ -21,16 +21,5 @@
 Linear Regression   Used when response variable is ‘numerical’ variable  getwd() ## [1] &amp;quot;/Users/jungyulyang/programming/school/r_blog/content/post&amp;quot; library(readr) #information for data usedcar2 &amp;lt;- read_csv(&amp;quot;data/usedcar2.csv&amp;quot;) ## Parsed with column specification: ## cols( ## Price = col_double(), ## Odometer = col_double(), ## Color = col_character() ## ) usedcar2 ## # A tibble: 100 x 3 ## Price Odometer Color ## &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt; ## 1 14636 37388 white ## 2 14122 44758 white ## 3 14470 45854 white ## 4 15072 40149 white ## 5 14802 40237 white ## 6 14660 43533 white ## 7 15612 32744 white ## 8 14632 41350 white ## 9 15008 35781 white ## 10 14666 48613 white ## # … with 90 more rows Encoding categorical variable</description>
     </item>
     
-    <item>
-      <title>Hello R Markdown</title>
-      <link>/2015/07/23/hello-r-markdown/</link>
-      <pubDate>Thu, 23 Jul 2015 21:13:14 -0500</pubDate>
-      
-      <guid>/2015/07/23/hello-r-markdown/</guid>
-      <description>R Markdown This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see http://rmarkdown.rstudio.com.
-You can embed an R code chunk like this:
-summary(cars) ## speed dist ## Min. : 4.0 Min. : 2.00 ## 1st Qu.:12.0 1st Qu.: 26.00 ## Median :15.0 Median : 36.00 ## Mean :15.4 Mean : 42.98 ## 3rd Qu.</description>
-    </item>
-    
   </channel>
 </rss>

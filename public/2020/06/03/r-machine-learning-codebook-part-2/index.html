@@ -62,7 +62,7 @@
 
   <article class="article">
     
-    <span class="article-duration">4 min read</span>
+    <span class="article-duration">6 min read</span>
     
 
     <h1 class="article-title">R Machine Learning Codebook (Part 2)</h1>
@@ -257,6 +257,79 @@ summary(boo.german)</code></pre>
 <pre class="r"><code>evol.german = errorevol(boo.german, newdata=german)
 plot.errorevol(evol.german)</code></pre>
 <p><img src="/post/2020-06-03-r-machine-learning-codebook-part-2_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<ol start="3" style="list-style-type: decimal">
+<li>RandomForest</li>
+</ol>
+<ul>
+<li>randomforest chooses some variable randomly instead of choosing all variables</li>
+</ul>
+<p>Random Forest Fitting</p>
+<pre class="r"><code>library(randomForest)</code></pre>
+<pre><code>## randomForest 4.6-14</code></pre>
+<pre><code>## Type rfNews() to see new features/changes/bug fixes.</code></pre>
+<pre><code>## 
+## Attaching package: &#39;randomForest&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:ggplot2&#39;:
+## 
+##     margin</code></pre>
+<pre class="r"><code>rf.german &lt;- randomForest(y~., data=german, ntree= 100, mtry=5, importance=T, na.action=na.omit)
+summary(rf.german)</code></pre>
+<pre><code>##                 Length Class  Mode     
+## call               7   -none- call     
+## type               1   -none- character
+## predicted       1000   factor numeric  
+## err.rate         300   -none- numeric  
+## confusion          6   -none- numeric  
+## votes           2000   matrix numeric  
+## oob.times       1000   -none- numeric  
+## classes            2   -none- character
+## importance        80   -none- numeric  
+## importanceSD      60   -none- numeric  
+## localImportance    0   -none- NULL     
+## proximity          0   -none- NULL     
+## ntree              1   -none- numeric  
+## mtry               1   -none- numeric  
+## forest            14   -none- list     
+## y               1000   factor numeric  
+## test               0   -none- NULL     
+## inbag              0   -none- NULL     
+## terms              3   terms  call</code></pre>
+<p>Variable Importance</p>
+<pre class="r"><code>importance(rf.german,type=1)</code></pre>
+<pre><code>##             MeanDecreaseAccuracy
+## check                 16.4639651
+## duration               5.6544313
+## history                6.5430882
+## purpose                2.5991136
+## credit                 5.6596124
+## savings                4.6071442
+## employment             3.5484219
+## installment            1.8982220
+## personal               2.6265059
+## debtors                2.8674523
+## residence              0.7142969
+## property               3.9839084
+## age                    2.9140090
+## others                 4.6528737
+## housing                0.9793288
+## numcredits             0.8780246
+## job                    0.2996086
+## residpeople            0.6849617
+## telephone              2.1266027
+## foreign                1.5613566</code></pre>
+<p>Prediction</p>
+<pre class="r"><code>pred.rf.german &lt;- predict(rf.german, newdata=german)
+head(pred.rf.german,10)</code></pre>
+<pre><code>##    1    2    3    4    5    6    7    8    9   10 
+## good  bad good good  bad good good good good  bad 
+## Levels: bad good</code></pre>
+<p>Confusion matrix</p>
+<pre class="r"><code>tab = table(german$y,pred.rf.german , dnn = c(&quot;Actual&quot;,&quot;Predicted&quot;))
+print(tab)</code></pre>
+<pre><code>##       Predicted
+## Actual bad good
+##   bad  300    0
+##   good   0  700</code></pre>
 
     </div>
   </article>

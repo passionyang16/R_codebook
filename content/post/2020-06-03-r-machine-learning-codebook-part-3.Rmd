@@ -1,0 +1,79 @@
+---
+title: R Machine Learning Codebook (Part 3)
+author: JungYul Yang
+date: '2020-06-03'
+slug: r-machine-learning-codebook-part-3
+categories: []
+tags: []
+---
+
+6. Clustering
+- unsupervised learning, without response variable
+
+(1) Hierarchial Clustering
+
+```{r}
+head(USArrests)
+zUSArrests = scale(USArrests)
+summary(zUSArrests)
+```
+
+Clustering
+- average clustering with 5 rectangels
+
+```{r}
+#Using average
+hc1 = hclust(dist(zUSArrests),method="average")
+plot(hc1,hang=-1)
+rect.hclust(hc1,k=5)
+```
+
+Show the clusters
+
+```{r}
+cutree(hc1,k=5)
+```
+
+Center points for each cluster
+
+```{r}
+cluster <- cutree(hc1,k=5)
+cent <- NULL
+for (k in 1:5){
+  cent <- rbind(cent, colMeans(USArrests[cluster == k,]))
+}
+cent
+
+```
+
+(2) K-means Clustering
+
+```{r}
+# 4 clusters
+kmc1 = kmeans(zUSArrests,4)
+kmc1
+```
+
+Scatterplot
+
+```{r}
+pairs(zUSArrests,col=kmc1$cluster, pch=16)
+```
+
+Elbow Point
+- chooses k where plot harshly drops
+- in this case, k = 4
+```{r}
+wss = 0
+for (i in 1:10) {wss[i]=sum(kmeans(zUSArrests,center=i)$withinss)}
+plot(1:10,wss,type='b',xlab='Number of Clusters',ylab='Within group sum of squares')
+
+```
+
+(3) K-medoid Clustering
+
+```{r}
+library(fpc)
+kmed = pamk(zUSArrests,4)
+kmed
+```

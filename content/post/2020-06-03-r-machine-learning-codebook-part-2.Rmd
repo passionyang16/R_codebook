@@ -111,4 +111,31 @@ evol.german = errorevol(boo.german, newdata=german)
 plot.errorevol(evol.german)
 ```
 
+(3) RandomForest
+ - randomforest chooses some variable randomly instead of choosing all variables
+
+Random Forest Fitting
+
+```{r}
+library(randomForest)
+rf.german <- randomForest(y~., data=german, ntree= 100, mtry=5, importance=T, na.action=na.omit)
+summary(rf.german)
+```
+
+Variable Importance
+```{r}
+importance(rf.german,type=1)
+```
+
+Prediction
+```{r}
+pred.rf.german <- predict(rf.german, newdata=german)
+head(pred.rf.german,10)
+```
+
+Confusion matrix
+```{r}
+tab = table(german$y,pred.rf.german , dnn = c("Actual","Predicted"))
+print(tab)
+```
 
