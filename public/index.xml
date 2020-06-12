@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>A Hugo website</title>
+    <title>JungYul Yang Blog</title>
     <link>/</link>
-    <description>Recent content on A Hugo website</description>
+    <description>Recent content on JungYul Yang Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 05 May 2016 21:48:51 -0700</lastBuildDate>
@@ -79,7 +79,21 @@ Projects 데이터 분석과 관련된 프로젝트 리스트입니다.
       <pubDate>Thu, 05 May 2016 21:48:51 -0700</pubDate>
       
       <guid>/about/</guid>
-      <description>This is a &amp;ldquo;hello world&amp;rdquo; example website for the blogdown package. The theme was forked from @jrutheiser/hugo-lithium-theme and modified by Yihui Xie.</description>
+      <description>Resume 양정열
+passionyang16@gmail.com
+010-2811-6370
+데이터 사이언스 관련 이력서입니다.
+사용언어: Python, R
+Projects 데이터 분석과 관련된 프로젝트 리스트입니다.
+데이콘 대회 Github
+사용 언어: Python
+지도 학습을 활용한 천체 유형 분류 분석
+  EDA를 통한 데이터 전처리, scikit learn 활용
+  분류 분석에 유용한 앙상블 기법 중 XgBoost, LightGBM 사용
+  데이터 마이닝 관련 필요한 과정 포함
+  부동산 가격 예측 프로그램 Github
+사용 언어: Python
+비지도 학습과 시계열 분석을 활용한 부동산 가격 예측</description>
     </item>
     
   </channel>
